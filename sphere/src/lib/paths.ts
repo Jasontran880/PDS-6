@@ -1,9 +1,9 @@
-/** Public URLs (via /public/assets → repo assets). Encode spaces for img/src and CSS url(). */
-const A = (name: string) => `/assets/${encodeURIComponent(name)}`
+const BASE = import.meta.env.BASE_URL || '/'
+const A = (name: string) => `${BASE}assets/${encodeURIComponent(name)}`
 
 /** Nested path under `/assets/` with each segment encoded (slashes preserved). */
 export function assetPath(...segments: string[]): string {
-  return '/assets/' + segments.map((s) => encodeURIComponent(s)).join('/')
+  return `${BASE}assets/` + segments.map((s) => encodeURIComponent(s)).join('/')
 }
 
 /** Hangout / sidequest cover photos (`assets/carousel-images/`). */
