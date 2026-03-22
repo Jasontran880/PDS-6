@@ -1,0 +1,30 @@
+/** Public URLs (via /public/assets → repo assets). Encode spaces for img/src and CSS url(). */
+const A = (name: string) => `/assets/${encodeURIComponent(name)}`
+
+export const assetUrl = {
+  grassOverlay: A('grass-overlay.png'),
+  sphere: A('sphere.png'),
+  outline: A('outline.png'),
+  largeOutline: A('large-outline.png'),
+  header: A('header.png'),
+  musicStatus: A('music status.png'),
+  arrow: A('arrow.png'),
+  avatar: A('avatar.png'),
+  face1: A('face1.png'),
+  face2: A('face2.png'),
+  face3: A('face3.png'),
+  face4: A('face4.png'),
+  face5: A('face5.png'),
+  backSpaceIcon: A('back-space-icon.png'),
+  flops: A('flops.png'),
+  likes: A('likes.png'),
+  palmTreeLeft: A('palm-tree-left.png'),
+  palmTreeRight: A('palm-tree-right.png'),
+  divider: A('divider.png'),
+  fileColour: (n: 1 | 2 | 3 | 4 | 5 | 6) => A(`file colour ${n}.png`),
+  sloopFont: A('Sloop-font.ttf'),
+  agrandirRegular: A('Agrandir-font/Agrandir-Regular.otf'),
+  agrandirTextBold: A('Agrandir-font/Agrandir-TextBold.otf'),
+  agrandirItalic: A('Agrandir-font/Agrandir-ThinItalic.otf'),
+  retroPixel: A('retro_pixel-font/Retro Pixel.otf'),
+} as const

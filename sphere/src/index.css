@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Sloop';
+  src: url('/assets/Sloop-font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agrandir';
+  src: url('/assets/Agrandir-font/Agrandir-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agrandir';
+  src: url('/assets/Agrandir-font/Agrandir-TextBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agrandir';
+  src: url('/assets/Agrandir-font/Agrandir-ThinItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Retro Pixel';
+  src: url('/assets/retro_pixel-font/Retro%20Pixel.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sloop: 'Sloop', serif;
+  --font-agrandir: 'Agrandir', system-ui, sans-serif;
+  --font-pixel: 'Retro Pixel', monospace;
+
+  --color-sphere-sky-top: #7ec8f0;
+  --color-sphere-sky-mid: #a8daf7;
+  --color-sphere-cloud-pink: #f5d4e8;
+  --color-sphere-cloud-white: #fff8fb;
+  --color-sphere-grass: #5cb85c;
+  --color-sphere-grass-deep: #3d8f3d;
+  --color-sphere-avatar-pink: #ff9ec8;
+  --color-sphere-avatar-blue: #7eb8ff;
+  --color-sphere-avatar-green: #7dffb0;
+  --color-sphere-avatar-purple: #c9a8ff;
+  --color-sphere-glass-tint: rgba(255, 255, 255, 0.22);
+  --color-sphere-glass-border: rgba(255, 255, 255, 0.55);
+}
+
+:root {
+  --sphere-blur-lg: 28px;
+  --sphere-blur-md: 18px;
+  --sphere-glass-bg: rgba(255, 255, 255, 0.18);
+  --sphere-glass-bg-strong: rgba(255, 255, 255, 0.28);
+  --sphere-border-gloss: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(200, 230, 255, 0.4) 40%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+  --sphere-glow-heading:
+    0 0 8px rgba(255, 255, 255, 0.95), 0 0 24px rgba(255, 255, 255, 0.75),
+    0 0 48px rgba(255, 240, 255, 0.5);
+  --sphere-radius-panel: 1.75rem;
+  --sphere-radius-pill: 9999px;
+  --sphere-space-1: 0.25rem;
+  --sphere-space-2: 0.5rem;
+  --sphere-space-3: 0.75rem;
+  --sphere-space-4: 1rem;
+  --sphere-space-6: 1.5rem;
+  --sphere-space-8: 2rem;
+  --sphere-space-12: 3rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-agrandir), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+.font-pixel {
+  font-family: var(--font-pixel), monospace;
+}
+
+/* CD spin on hover — class toggled via group */
+@keyframes sphere-cd-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.group:hover .cd-spin-hover {
+  animation: sphere-cd-spin 2s linear infinite;
+}
+
+.page-enter {
+  animation: sphere-fade-up 0.5s ease-out both;
+}
+
+@keyframes sphere-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
