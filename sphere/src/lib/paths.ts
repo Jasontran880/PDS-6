@@ -17,6 +17,24 @@ export function carouselImageAt(index: number): string {
   return carouselImageUrls[index % carouselImageUrls.length]!
 }
 
+/** Background music (`assets/music/`). */
+export const musicUrl = {
+  closer: assetPath('music', 'The Chainsmokers - Closer (Lyric) ft. Halsey.mp3'),
+  lastFriday: assetPath('music', 'Katy Perry - Last Friday Night (Lyrics).mp3'),
+  house: assetPath('music', 'Panic! At The Disco - House of Memories (Lyrics).mp3'),
+} as const
+
+export type MusicTrackKey = keyof typeof musicUrl
+
+/** Explore / Local Spots (`assets/business-images/`). */
+export const businessImageUrl = {
+  cafe: assetPath('business-images', 'cafe.webp'),
+  cinema: assetPath('business-images', 'cinema.webp'),
+  restaurant: assetPath('business-images', 'restaraunt.webp'),
+  park: assetPath('business-images', 'park.webp'),
+  arcade: assetPath('business-images', 'arcade.webp'),
+} as const
+
 export const assetUrl = {
   grassOverlay: A('grass-overlay.png'),
   sphere: A('sphere.png'),

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sphere - Your Inner Circle</title>
+    <meta name="description" content="Sphere - The Frutiger Aero Social Network">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Main App Container -->
+    <main id="app">
+        <!-- Persistent Background Landscape -->
+        <div id="landscape-bg">
+            <div class="sky-bg"></div>
+            <div class="palm-trees" id="global-palm-trees">
+                <img src="./ASSET_REFERENCE/palm-tree-left.png" class="palm-left" alt="Palm tree">
+                <img src="./ASSET_REFERENCE/palm-tree-right.png" class="palm-right" alt="Palm tree">
+            </div>
+            <div class="hills-layer"></div>
+        </div>
+
+        <!-- Views will be injected or toggled here -->
+        <!-- VIEW: SPLASH -->
+        <section id="view-splash" class="view active">
+            <div class="splash-content" onclick="appContext.navigateTo('outersphere-title')">
+                <div class="logo-lockup text-neon">
+                    <span class="logo-s font-initial">S</span>
+                    <span class="logo-phere font-title">phere</span>
+                </div>
+                <div class="tagline font-body text-neon-subtle">YOUR INNER CIRCLE</div>
+            </div>
+            <div class="click-prompt font-pixel text-neon">TAP TO ENTER</div>
+        </section>
+
+        <!-- VIEW: OUTERSPHERE TITLE -->
+        <section id="view-outersphere-title" class="view" onclick="appContext.navigateTo('outersphere-main')">
+            <div class="title-bubble-container">
+                <img src="./ASSET_REFERENCE/sphere.png" class="soap-bubble" alt="Soap Bubble">
+                <div class="title-text-inside text-neon">
+                    <span class="logo-o font-initial">O</span>
+                    <span class="logo-utersphere font-title">utersphere</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: OUTERSPHERE MAIN (SOCIAL LANDSCAPE) -->
+        <section id="view-outersphere-main" class="view landscape-view">
+            <!-- Header Zone -->
+            <div class="os-header">
+                <div class="os-logo text-neon">
+                    <span class="font-initial logo-small-o">O</span><span class="font-title logo-small-rest">utersphere</span>
+                </div>
+                <div class="os-tagline font-pixel">YOUR'RE GROUNDED BY THE PEOPLE AROUND YOU</div>
+            </div>
+
+            <!-- Stats Pills -->
+            <div class="os-stats">
+                <div class="glass-panel glass-pill stat-pill font-pixel text-neon">NUMBER OF FRIENDS [3]</div>
+                <div class="glass-panel glass-pill stat-pill font-pixel text-neon">DAYS SINCE LAST HANGOUT [12]</div>
+            </div>
+
+            <!-- Avatars scattered -->
+            <div class="avatars-container">
+                <div class="avatar-wrap base-you" onclick="appContext.navigateTo('profile-you')">
+                    <img src="./ASSET_REFERENCE/avatar.png" class="avatar-body" alt="You">
+                    <img src="./ASSET_REFERENCE/face1.png" class="avatar-face" alt="Face">
+                    <span class="avatar-label font-title text-neon-subtle">YOU</span>
+                </div>
+                <div class="avatar-wrap friend-1" onclick="appContext.navigateTo('profile-friend')">
+                    <img src="./ASSET_REFERENCE/avatar.png" class="avatar-body hue-pink" alt="Friend">
+                    <img src="./ASSET_REFERENCE/face2.png" class="avatar-face" alt="Face">
+                </div>
+                <div class="avatar-wrap friend-2" onclick="appContext.navigateTo('profile-friend')">
+                    <img src="./ASSET_REFERENCE/avatar.png" class="avatar-body hue-blue" alt="Friend">
+                    <img src="./ASSET_REFERENCE/face3.png" class="avatar-face" alt="Face">
+                </div>
+                <div class="avatar-wrap friend-3" onclick="appContext.navigateTo('profile-friend')">
+                    <img src="./ASSET_REFERENCE/avatar.png" class="avatar-body hue-pink-light" alt="Friend">
+                    <img src="./ASSET_REFERENCE/face4.png" class="avatar-face" alt="Face">
+                </div>
+            </div>
+
+            <!-- Add Friend Button -->
+            <div class="add-friend-btn glass-panel glass-pill font-pixel text-neon">
+                ADD FRIEND
+            </div>
+        </section>
+
+        <!-- VIEW: PROFILE (Shared for You & Friend) -->
+        <section id="view-profile" class="view flex-row">
+            <!-- Left Side: Avatar Showcase -->
+            <div class="profile-left">
+                <div class="profile-bubble">
+                    <img src="./ASSET_REFERENCE/sphere.png" class="soap-bubble" alt="Bubble">
+                    <!-- Layered avatar structure inside floating bubble -->
+                    <div class="avatar-inside-wrap">
+                        <img src="./ASSET_REFERENCE/avatar.png" id="profile-avatar-img" class="avatar-body" alt="Avatar">
+                        <img src="./ASSET_REFERENCE/face2.png" id="profile-face-img" class="avatar-face" alt="Face">
+                    </div>
+                </div>
+                
+                <div class="glass-panel glass-pill friendship-score font-pixel text-neon">
+                    FRIENDSHIP SCORE [95]
+                </div>
+                
+                <div class="back-btn glass-panel glass-pill" onclick="appContext.navigateTo('outersphere-main')">
+                    <img src="./ASSET_REFERENCE/back-space-icon.png" alt="Back" class="back-icon">
+                    <span class="font-body">back</span>
+                </div>
+            </div>
+
+            <!-- Right Side: Info Panel -->
+            <div class="profile-right">
+                <div class="glass-panel glass-card info-card" style="overflow-y: auto;">
+                    <!-- Header -->
+                    <div class="glass-panel info-header text-neon">
+                        <span id="profile-name-initial" class="font-initial">U</span>
+                        <span id="profile-name-rest" class="font-title">SERNAME</span>
+                    </div>
+
+                    <!-- Description Zone -->
+                    <div class="desc-zone font-body" style="width: 100%; border: none; padding: 10px 0; margin-bottom: 20px; font-size: 20px; color: var(--c-neon-white);">
+                        USER DESCRIPTION: Loves to hang out in the grassy hills. Usually found listening to old MP3s.
+                    </div>
+
+                    <!-- Tabs (Visual) -->
+                    <div class="info-tabs">
+                        <div class="glass-panel glass-pill tab-btn font-pixel text-neon active-tab" data-tab="hangouts" onclick="appContext.switchTab('hangouts')">HANGOUTS</div>
+                        <div class="glass-panel glass-pill tab-btn font-pixel text-neon" data-tab="invite" onclick="appContext.switchTab('invite')">INVITE</div>
+                        <div class="glass-panel glass-pill tab-btn font-pixel text-neon" data-tab="stats" onclick="appContext.switchTab('stats')">STATS</div>
+                    </div>
+
+                    <!-- HANGOUTS MODULE -->
+                    <div id="module-hangouts" class="glass-panel info-body tab-content" style="flex-direction: column; margin-bottom: 20px;">
+                        <h3 class="font-pixel text-neon" style="font-size: 24px; margin-bottom: 15px;">Past Hangouts</h3>
+                        <div class="hangout-carousel" style="width: 100%;">
+                            <!-- Orange replaceable placeholder carousel -->
+                            <div class="hangout-img-box" style="position: relative; width: 100%; aspect-ratio: 16/9; background-color: #ff9900; border-radius: 12px; padding: 20px; box-shadow: inset 0 0 20px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+                                <div style="font-family: var(--f-pixel); font-size: 28px; color: white; text-shadow: 0 0 10px rgba(255,255,255,0.8); margin-bottom: 5px;">Friday Night Mall Run</div>
+                                <div style="font-family: var(--f-body); font-size: 16px; color: rgba(255,255,255,0.8);">Oct 23rd, 2006</div>
+                            </div>
+                            <div class="usernames" style="margin-top: 15px; font-family: var(--f-pixel); font-size: 18px; color: var(--c-neon-blue); line-height: 1.5; text-align: left;">With: ✨SparkleKitty✨, xX_Skater_Xx</div>
+                        </div>
+                    </div>
+
+                    <!-- INVITE MODULE -->
+                    <div id="module-invite" class="glass-panel info-body tab-content" style="flex-direction: column; margin-bottom: 20px; display: none;">
+                        <h3 class="font-pixel text-neon" style="font-size: 24px; margin-bottom: 15px;">Plan a Hangout</h3>
+                        <form class="invite-form" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+                            <input type="text" placeholder="People (@username)" class="glass-input">
+                            <input type="date" class="glass-input">
+                            <input type="time" class="glass-input">
+                            <input type="text" placeholder="Location" class="glass-input">
+                            <button type="button" class="glass-btn" onclick="alert('Hangout formally scheduled! Invites pending.');">SEND INVITE</button>
+                        </form>
+                    </div>
+
+                    <!-- STATS MODULE -->
+                    <div id="module-stats" class="glass-panel info-body tab-content" style="flex-direction: column; display: none;">
+                        <h3 class="font-pixel text-neon" style="font-size: 24px; margin-bottom: 15px;">Account Stats</h3>
+                        <div class="stat-bar-container">
+                            <div class="stat-label">Conversational skill</div>
+                            <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 85%; background: var(--c-neon-pink);"></div></div>
+                        </div>
+                        <div class="stat-bar-container">
+                            <div class="stat-label">Punctuality</div>
+                            <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 60%; background: var(--c-neon-blue);"></div></div>
+                        </div>
+                        <div class="stat-bar-container">
+                            <div class="stat-label">Number of plans attended</div>
+                            <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 95%; background: var(--c-neon-white);"></div></div>
+                        </div>
+                        <div class="stat-bar-container">
+                            <div class="stat-label">General engagement metrics</div>
+                            <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 78%; background: #FFD700;"></div></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: INNERSPHERE TITLE -->
+        <section id="view-innersphere-title" class="view" onclick="appContext.navigateTo('profile-you')">
+            <div class="title-bubble-container">
+                <img src="./ASSET_REFERENCE/sphere.png" class="soap-bubble" alt="Soap Bubble">
+                <div class="title-text-inside text-neon">
+                    <span class="logo-o font-initial">I</span>
+                    <span class="logo-utersphere font-title">NNERSPHERE</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: BLOG OVERVIEW -->
+        <section id="view-blog" class="view flex-row" style="align-items:center; justify-content:center;">
+            <div class="glass-panel glass-card blog-container">
+                <div class="blog-header text-neon">
+                    <span class="font-initial" style="font-size:140px; line-height:0.8; margin-right:-20px; transform:translateX(-20px); display:inline-block;">B</span><span class="font-title">LOG</span>
+                </div>
+                
+                <div class="blog-section">
+                    <div class="font-pixel text-neon text-right">PUBLIC</div>
+                    <div class="folders-row">
+                        <img src="./ASSET_REFERENCE/file colour 4.png" class="folder-icon" onclick="appContext.navigateTo('blog-post')" alt="Folder"> <!-- pink -->
+                        <img src="./ASSET_REFERENCE/file colour 2.png" class="folder-icon" onclick="appContext.navigateTo('blog-post')" alt="Folder"> <!-- yellow -->
+                        <img src="./ASSET_REFERENCE/file colour 1.png" class="folder-icon" onclick="appContext.navigateTo('blog-post')" alt="Folder"> <!-- green -->
+                    </div>
+                </div>
+
+                <div class="blog-divider"></div>
+
+                <div class="blog-section">
+                    <div class="font-pixel text-neon text-left">PRIVATE</div>
+                    <div class="folders-row">
+                        <img src="./ASSET_REFERENCE/file colour 3.png" class="folder-icon" onclick="appContext.navigateTo('blog-post')" alt="Folder"> <!-- blue -->
+                        <img src="./ASSET_REFERENCE/file colour 5.png" class="folder-icon" onclick="appContext.navigateTo('blog-post')" alt="Folder"> <!-- purple -->
+                        <img src="./ASSET_REFERENCE/file colour 6.png" class="folder-icon" onclick="appContext.navigateTo('blog-post')" alt="Folder"> <!-- coral -->
+                    </div>
+                </div>
+
+                <div class="back-btn glass-panel glass-pill" style="bottom: 2%; left: 2%;" onclick="appContext.navigateTo('outersphere-main')">
+                    <img src="./ASSET_REFERENCE/back-space-icon.png" alt="Back" class="back-icon">
+                    <span class="font-body">back</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: BLOG POST DETAIL -->
+        <section id="view-blog-post" class="view flex-row" style="align-items:center; justify-content:center;">
+            <div class="glass-panel glass-card blog-container">
+                <div class="post-header">
+                    <img src="./ASSET_REFERENCE/file colour 4.png" class="folder-icon-small" alt="Folder">
+                    <div class="creator-attr font-body text-neon">
+                        created by 
+                        <span class="user-tag glass-panel glass-pill font-title"><span class="font-initial">U</span>sername</span>
+                    </div>
+                </div>
+                
+                <div class="post-content font-body">
+                    <div class="diary-entry" style="margin-bottom: 30px;">
+                        <h3 class="font-pixel text-neon" style="color: #FF69B4; font-size: 24px; margin-bottom: 10px;">October 23rd, 2006</h3>
+                        <p style="font-size: 22px; line-height: 1.6;">I finally got that new transparent phone! The UX is so glossy and it matches my new bedroom perfectly. Everyone is hanging out in the Outersphere tonight. The vibes are completely immaculate ✨</p>
+                    </div>
+                    <div class="diary-entry" style="margin-bottom: 30px;">
+                        <h3 class="font-pixel text-neon" style="color: #60C8FF; font-size: 24px; margin-bottom: 10px;">September 14th, 2006</h3>
+                        <p style="font-size: 22px; line-height: 1.6;">Just listening to the new pop hits and staring at the landscape. Time moves slower here. I love how the palm trees look against the pink clouds. Added 3 new friends today!</p>
+                    </div>
+                </div>
+
+                <div class="back-btn glass-panel glass-pill" style="bottom: 2%; left: 2%;" onclick="appContext.navigateTo('blog')">
+                    <img src="./ASSET_REFERENCE/back-space-icon.png" alt="Back" class="back-icon">
+                    <span class="font-body">back</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLOBAL NAVIGATION DOCK (To switch between Outer/Inner/Blog) -->
+        <div id="global-nav-dock" class="glass-panel glass-pill">
+            <div class="nav-item font-pixel" onclick="appContext.navigateTo('outersphere-title')">OUTERSPHERE</div>
+            <div class="nav-item font-pixel" onclick="appContext.navigateTo('innersphere-title')">INNERSPHERE</div>
+            <div class="nav-item font-pixel" onclick="appContext.navigateTo('blog')">BLOG</div>
+        </div>
+
+        <!-- GLOBAL AUDIO PLAYER -->
+        <div id="global-audio-player" class="glass-panel glass-pill">
+            <div id="audio-play-btn" class="font-pixel text-neon" onclick="appContext.toggleAudio()">▶</div>
+            <div class="audio-info font-body text-neon" id="audio-track-name">Paused</div>
+            <input type="range" id="audio-volume" min="0" max="1" step="0.05" value="0.5" onchange="appContext.setVolume(this.value)">
+        </div>
+
+        <!-- HIDDEN AUDIO ELEMENTS -->
+        <audio id="audio-splash" src="./MUSIC/The Chainsmokers - Closer (Lyric) ft. Halsey.mp3" preload="auto" loop autoplay></audio>
+        <audio id="audio-outersphere" src="./MUSIC/Katy Perry - Last Friday Night (Lyrics).mp3" preload="auto" loop></audio>
+        <audio id="audio-innersphere" src="./MUSIC/Panic! At The Disco - House of Memories (Lyrics).mp3" preload="auto" loop></audio>
+
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

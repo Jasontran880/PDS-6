@@ -3,13 +3,14 @@ import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
 import { GlassPill } from '@/components/ui/GlassPill'
 import { SplitHeading } from '@/components/ui/SplitHeading'
+import { businessImageUrl } from '@/lib/paths'
 
 const venues = [
-  { name: 'Cloud Nine Café', cat: 'Café', hue: 'from-amber-200 to-orange-300' },
-  { name: 'Starlight Cinema', cat: 'Cinema', hue: 'from-indigo-300 to-purple-400' },
-  { name: 'Garden Bites', cat: 'Restaurant', hue: 'from-emerald-200 to-teal-300' },
-  { name: 'Bliss Park', cat: 'Park', hue: 'from-lime-200 to-green-400' },
-  { name: 'Retro Arcade', cat: 'Cinema', hue: 'from-pink-300 to-rose-400' },
+  { name: 'Cloud Nine Café', cat: 'Café', cover: businessImageUrl.cafe },
+  { name: 'Starlight Cinema', cat: 'Cinema', cover: businessImageUrl.cinema },
+  { name: 'Garden Bites', cat: 'Restaurant', cover: businessImageUrl.restaurant },
+  { name: 'Bliss Park', cat: 'Park', cover: businessImageUrl.park },
+  { name: 'Retro Arcade', cat: 'Cinema', cover: businessImageUrl.arcade },
 ]
 
 const people: { name: string; face: FaceId; tint: string; tag: string }[] = [
@@ -29,10 +30,9 @@ export function ExplorePage() {
         <div className="flex gap-4 overflow-x-auto pb-2">
           {venues.map((v) => (
             <GlassPanel key={v.name} className="w-[260px] shrink-0">
-              <div
-                className={`mb-3 h-28 rounded-xl bg-gradient-to-br ${v.hue} ring-1 ring-white/40`}
-                role="presentation"
-              />
+              <div className="mb-3 h-28 overflow-hidden rounded-xl ring-1 ring-white/40" role="presentation">
+                <img src={v.cover} alt="" className="h-full w-full object-cover" />
+              </div>
               <h3
                 className="mb-2 text-left text-lg font-bold text-white"
                 style={{ fontFamily: "'Agrandir', sans-serif" }}
