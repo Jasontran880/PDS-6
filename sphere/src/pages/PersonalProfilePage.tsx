@@ -23,6 +23,10 @@ export function PersonalProfilePage({ isOwnProfile = false }: Props) {
   const profileKey = isOwnProfile ? 'me' : (userId ?? 'unknown')
   const profile = useMemo(() => getProfilePageData(profileKey), [profileKey])
 
+  /** Name from social circle list when opening a friend from the plaza */
+  const friendLabel = useMemo(() => getSocialFriendById(userId)?.label, [userId])
+  const otherDisplayName = friendLabel ?? profile.displayName
+
   const visual = useMemo(() => {
     if (isOwnProfile) return SOCIAL_CIRCLE_YOU
     const row = getSocialFriendById(userId)
@@ -43,7 +47,7 @@ export function PersonalProfilePage({ isOwnProfile = false }: Props) {
     </>
   ) : (
     <>
-      <SplitHeading text={profile.displayName} as="h1" className="mb-1 text-3xl sm:text-4xl" />
+      <SplitHeading text={otherDisplayName} as="h1" className="mb-1 text-3xl sm:text-4xl" />
       <p
         className="mb-4 text-sm text-white/75"
         style={{ fontFamily: "'Agrandir', sans-serif" }}
@@ -108,33 +112,39 @@ export function PersonalProfilePage({ isOwnProfile = false }: Props) {
             <StarMetric kind="flops" value={profile.flopsPct} />
           </div>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-          {profile.sidequests.map((sq) => (
-            <div key={`${profileKey}-${sq.title}-${sq.date}`} className="flex flex-col gap-2">
-              <div className="relative aspect-video w-full overflow-hidden rounded-xl ring-1 ring-white/50">
-                <img
-                  src={carouselImageAt(sq.imageSlot)}
-                  alt=""
-                  className="h-full w-full object-cover"
-                />
-                <div
-                  className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/65 via-black/25 to-transparent px-2.5 pb-5 pt-2 text-left"
-                  style={{ fontFamily: "'Agrandir', sans-serif" }}
-                >
-                  <p className="text-xs font-bold leading-tight text-white drop-shadow-md sm:text-sm">
-                    {sq.title}
-                  </p>
-                  <p className="mt-0.5 text-[10px] font-medium italic text-white/85 drop-shadow sm:text-xs">
-                    {sq.date}
-                  </p>
+        <div className="mt-8">
+          <SplitHeading text="Recent Sidequests" as="h2" className="mb-4 text-2xl sm:text-3xl" />
+          <div className="-mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 pt-1 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.35)_transparent]">
+            {profile.sidequests.map((sq, i) => (
+              <div
+                key={`${profileKey}-sq-${i}-${sq.title}`}
+                className="flex w-[min(78vw,280px)] shrink-0 snap-start flex-col gap-2"
+              >
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl ring-1 ring-white/50">
+                  <img
+                    src={carouselImageAt(sq.imageSlot)}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/65 via-black/25 to-transparent px-2.5 pb-5 pt-2 text-left"
+                    style={{ fontFamily: "'Agrandir', sans-serif" }}
+                  >
+                    <p className="text-xs font-bold leading-tight text-white drop-shadow-md sm:text-sm">
+                      {sq.title}
+                    </p>
+                    <p className="mt-0.5 text-[10px] font-medium italic text-white/85 drop-shadow sm:text-xs">
+                      {sq.date}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  <UsernamePill name={sq.attendees[0]} />
+                  <UsernamePill name={sq.attendees[1]} />
                 </div>
               </div>
-              <div className="flex flex-wrap gap-1">
-                <UsernamePill name={sq.attendees[0]} />
-                <UsernamePill name={sq.attendees[1]} />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </GlassPanel>
 

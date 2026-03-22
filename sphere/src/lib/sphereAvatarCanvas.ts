@@ -19,15 +19,19 @@ function loadImg(src: string): Promise<HTMLImageElement> {
   })
 }
 
-export function sphereAvatarCanvasKey(tint: string, face: FaceId): string {
-  return `${tint}::${face}`
+export function sphereAvatarCanvasKey(tint: string, face: FaceId, displaySize = 64): string {
+  return `${tint}::${face}::${displaySize}`
 }
 
 const syncCache = new Map<string, HTMLCanvasElement>()
 const inflight = new Map<string, Promise<HTMLCanvasElement>>()
 
-export function getSphereAvatarCanvas(bodyTint: string, face: FaceId): HTMLCanvasElement | null {
-  return syncCache.get(sphereAvatarCanvasKey(bodyTint, face)) ?? null
+export function getSphereAvatarCanvas(
+  bodyTint: string,
+  face: FaceId,
+  displaySize = 64,
+): HTMLCanvasElement | null {
+  return syncCache.get(sphereAvatarCanvasKey(bodyTint, face, displaySize)) ?? null
 }
 
 /**
@@ -38,7 +42,7 @@ export function renderSphereAvatarToCanvas(
   face: FaceId,
   displaySize = 64,
 ): Promise<HTMLCanvasElement> {
-  const key = sphereAvatarCanvasKey(bodyTint, face)
+  const key = sphereAvatarCanvasKey(bodyTint, face, displaySize)
   const hit = syncCache.get(key)
   if (hit) return Promise.resolve(hit)
   const pending = inflight.get(key)
@@ -112,15 +116,16 @@ export function renderSphereAvatarToCanvas(
 
 export async function preloadSphereAvatars(
   configs: { bodyTint: string; face: FaceId }[],
+  displaySize = 64,
 ): Promise<void> {
   const keys = new Set<string>()
   const unique: { bodyTint: string; face: FaceId }[] = []
   for (const c of configs) {
-    const k = sphereAvatarCanvasKey(c.bodyTint, c.face)
+    const k = sphereAvatarCanvasKey(c.bodyTint, c.face, displaySize)
     if (!keys.has(k)) {
       keys.add(k)
       unique.push(c)
     }
   }
-  await Promise.all(unique.map((c) => renderSphereAvatarToCanvas(c.bodyTint, c.face, 64)))
+  await Promise.all(unique.map((c) => renderSphereAvatarToCanvas(c.bodyTint, c.face, displaySize)))
 }

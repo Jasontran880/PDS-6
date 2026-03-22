@@ -5,7 +5,8 @@ import type { SocialCircleFriendRow } from '@/lib/socialCircleFriends'
 import { getSphereAvatarCanvas, preloadSphereAvatars } from '@/lib/sphereAvatarCanvas'
 
 const WORLD_SIZE = 640
-const AVATAR_SIZE = 56
+/** Drawn size in world units (matches sphereAvatarCanvas raster size for crisp sprites). */
+const AVATAR_SIZE = 90
 const MIN_RADIUS = 64
 const MAX_RADIUS = 188
 const PLAZA_RADIUS = WORLD_SIZE / 2 - 44
@@ -130,7 +131,7 @@ export function SocialCircleLobby({ friends, you, className = '', onPick }: Prop
       ...friends.map((f) => ({ bodyTint: f.tint, face: f.face })),
       { bodyTint: you.tint, face: you.face },
     ]
-    preloadSphereAvatars(configs).then(() => {
+    preloadSphereAvatars(configs, AVATAR_SIZE).then(() => {
       if (!cancelled) setAssetsReady(true)
     })
     return () => {
@@ -318,8 +319,8 @@ export function SocialCircleLobby({ friends, you, className = '', onPick }: Prop
     <div
       ref={containerRef}
       className={[
-        'relative w-full overflow-hidden rounded-3xl border border-white/25 bg-gradient-to-b from-sky-200/40 via-fuchsia-100/25 to-emerald-200/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]',
-        'min-h-[280px] touch-none',
+        'relative h-full min-h-[min(60vh,640px)] w-full overflow-hidden rounded-3xl border border-white/20 bg-transparent shadow-none',
+        'touch-none',
         className,
       ].join(' ')}
     >
@@ -386,10 +387,11 @@ export function SocialCircleLobby({ friends, you, className = '', onPick }: Prop
 function drawGround(ctx: CanvasRenderingContext2D) {
   const cx = WORLD_SIZE / 2
   const cy = WORLD_SIZE / 2
+  // No green tint — nearly invisible floor so the page background shows through.
   const skyGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, PLAZA_RADIUS + 60)
-  skyGrad.addColorStop(0, 'rgba(255, 255, 255, 0.55)')
-  skyGrad.addColorStop(0.45, 'rgba(190, 228, 252, 0.5)')
-  skyGrad.addColorStop(1, 'rgba(200, 235, 210, 0.45)')
+  skyGrad.addColorStop(0, 'rgba(255, 255, 255, 0.07)')
+  skyGrad.addColorStop(0.55, 'rgba(255, 255, 255, 0.02)')
+  skyGrad.addColorStop(1, 'rgba(255, 255, 255, 0)')
   ctx.fillStyle = skyGrad
   ctx.fillRect(0, 0, WORLD_SIZE, WORLD_SIZE)
 
@@ -408,15 +410,15 @@ function drawGround(ctx: CanvasRenderingContext2D) {
       const d = Math.hypot(dx, dy)
       if (d > PLAZA_RADIUS) continue
       const fade = Math.max(0, 1 - d / (PLAZA_RADIUS - 16))
-      ctx.globalAlpha = fade * 0.35
-      ctx.fillStyle = light ? 'rgba(255,255,255,0.5)' : 'rgba(230, 240, 255, 0.35)'
+      ctx.globalAlpha = fade * 0.1
+      ctx.fillStyle = light ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.06)'
       ctx.fillRect(x, y, tile, tile)
     }
   }
   ctx.globalAlpha = 1
   ctx.restore()
 
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)'
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'
   ctx.lineWidth = 2
   ctx.beginPath()
   ctx.arc(cx, cy, PLAZA_RADIUS, 0, Math.PI * 2)
@@ -427,7 +429,7 @@ function drawYou(ctx: CanvasRenderingContext2D, time: number, you: YouConfig) {
   const cx = WORLD_SIZE / 2
   const cy = WORLD_SIZE / 2
   const bob = Math.sin(time * 0.03) * 2
-  const img = getSphereAvatarCanvas(you.tint, you.face)
+  const img = getSphereAvatarCanvas(you.tint, you.face, AVATAR_SIZE)
   if (!img) return
 
   ctx.fillStyle = 'rgba(0,0,0,0.12)'
@@ -451,7 +453,7 @@ function drawFriend(ctx: CanvasRenderingContext2D, friend: LobbyFriend, ws: Walk
     ? Math.sin(time * 0.12 + ws.bobPhase) * 2.5
     : Math.sin(time * 0.025 + ws.bobPhase) * 1
 
-  const img = getSphereAvatarCanvas(friend.tint, friend.face)
+  const img = getSphereAvatarCanvas(friend.tint, friend.face, AVATAR_SIZE)
   if (!img) return
 
   ctx.fillStyle = 'rgba(0,0,0,0.12)'
@@ -462,8 +464,17 @@ function drawFriend(ctx: CanvasRenderingContext2D, friend: LobbyFriend, ws: Walk
   ctx.drawImage(img, x - AVATAR_SIZE / 2, y - AVATAR_SIZE / 2 + bobAmount, AVATAR_SIZE, AVATAR_SIZE)
 
   ctx.fillStyle = 'rgba(55, 45, 75, 0.9)'
-  ctx.font = '9px "Retro Pixel", monospace'
   ctx.textAlign = 'center'
+  const maxLabelW = AVATAR_SIZE * 2.4
+  let fontSize = 10
+  for (let s = 10; s >= 6; s--) {
+    ctx.font = `${s}px "Retro Pixel", monospace`
+    if (ctx.measureText(friend.label).width <= maxLabelW) {
+      fontSize = s
+      break
+    }
+  }
+  ctx.font = `${fontSize}px "Retro Pixel", monospace`
   ctx.fillText(friend.label, x, y + AVATAR_SIZE / 2 + 14 + bobAmount)
 }
 

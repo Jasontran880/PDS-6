@@ -1,5 +1,7 @@
 /** Deterministic “random” copy from string seeds (stable per profile / card). */
 
+import { CHARACTER_NAMES } from '@/lib/characterNames'
+
 export function hashString(str: string): number {
   let h = 2166136261 >>> 0
   for (let i = 0; i < str.length; i++) {
@@ -25,43 +27,6 @@ function rng(profileKey: string, salt: number) {
 function pick<T>(r: () => number, arr: readonly T[]): T {
   return arr[Math.floor(r() * arr.length)]!
 }
-
-const FIRST = [
-  'River',
-  'Skyler',
-  'Morgan',
-  'Casey',
-  'Jordan',
-  'Riley',
-  'Quinn',
-  'Avery',
-  'Jamie',
-  'Noa',
-  'Eden',
-  'Jules',
-  'Sage',
-  'Blake',
-  'Remy',
-  'Indigo',
-  'Harper',
-  'Finley',
-] as const
-
-const LAST = [
-  'Nguyen',
-  'Park',
-  'Reyes',
-  'Okonkwo',
-  'Silva',
-  'Kim',
-  'Martinez',
-  'Chen',
-  'Patel',
-  'Frost',
-  'Hayes',
-  'Lopez',
-  'Dubois',
-] as const
 
 const HANDLE_SUFFIX = [
   'glitch',
@@ -116,23 +81,6 @@ export const SIDEQUEST_NAMES = [
   'Bookstore treasure hunt',
 ] as const
 
-const ATTENDEES = [
-  'Jamie',
-  'Alex',
-  'Sam',
-  'Rio',
-  'Blake',
-  'Noa',
-  'Eden',
-  'Lou',
-  'Kim',
-  'Pat',
-  'Max',
-  'Sky',
-  'River',
-  'Morgan',
-] as const
-
 /** Exclusive end: before local Mar 22, 2026. */
 const PAST_RANGE_START = Date.UTC(2025, 0, 1)
 const PAST_RANGE_END = Date.UTC(2026, 2, 22)
@@ -167,12 +115,20 @@ export type ProfilePageData = {
   }>
 }
 
+function handleFromDisplayName(displayName: string, suffix: string) {
+  const base = displayName
+    .replace(/\s+/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '')
+    .slice(0, 18)
+  return `@${base || 'sphere'}_${suffix}`
+}
+
 export function getProfilePageData(profileKey: string): ProfilePageData {
   const r0 = rng(profileKey, 0)
-  const first = pick(r0, FIRST)
-  const last = pick(r0, LAST)
+  const displayName = pick(r0, CHARACTER_NAMES)
   const suffix = pick(r0, HANDLE_SUFFIX)
-  const handle = `@${first.toLowerCase()}_${suffix}`
+  const handle = handleFromDisplayName(displayName, suffix)
 
   const r1 = rng(profileKey, 1)
   const a = pick(r1, SNIPPETS)
@@ -185,17 +141,17 @@ export function getProfilePageData(profileKey: string): ProfilePageData {
   const flopWhole = 4 + Math.floor(r2() * 18)
   const flopsPct = `${flopWhole}%`
 
-  const sidequests = [0, 1].map((slot) => {
+  const sidequests = [0, 1, 2, 3, 4, 5].map((slot) => {
     const r = rng(profileKey, 10 + slot)
     const { title, date } = sidequestHeaderForSeed(`profile:${profileKey}`, slot)
     const imageSlot = slot
-    const attendees: [string, string] = [pick(r, ATTENDEES), pick(r, ATTENDEES)]
-    if (attendees[0] === attendees[1]) attendees[1] = pick(r, ATTENDEES)
+    const attendees: [string, string] = [pick(r, CHARACTER_NAMES), pick(r, CHARACTER_NAMES)]
+    if (attendees[0] === attendees[1]) attendees[1] = pick(r, CHARACTER_NAMES)
     return { title, date, imageSlot, attendees }
   })
 
   return {
-    displayName: `${first} ${last}`,
+    displayName,
     handle,
     description,
     likes,

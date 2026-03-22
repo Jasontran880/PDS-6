@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import { CHARACTER_NAMES } from '@/lib/characterNames'
 import { assetUrl } from '@/lib/paths'
 import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
@@ -34,8 +35,8 @@ export function BlogFolderPage() {
             >
               created by
             </span>
-            <UsernamePill name="Jamie" />
-            <UsernamePill name="Alex" />
+            <UsernamePill name={CHARACTER_NAMES[0]} />
+            <UsernamePill name={CHARACTER_NAMES[1]} />
           </div>
         </div>
         <div

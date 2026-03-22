@@ -9,7 +9,7 @@ export function LanderPage() {
       type="button"
       onClick={() => navigate('/outersphere')}
       className="flex min-h-svh w-full cursor-pointer flex-col items-center justify-center border-0 bg-transparent p-8 text-center"
-      aria-label="Continue to Innersphere"
+      aria-label="Continue to Outersphere"
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -20,8 +20,10 @@ export function LanderPage() {
         <SplitHeading
           text="Sphere"
           as="h1"
+          rowAlign="center"
           className="text-6xl sm:text-8xl md:text-9xl"
-          firstClassName="text-7xl sm:text-9xl md:text-[10rem]"
+          firstClassName="leading-none text-[min(13.5rem,42vw)] sm:text-[min(24rem,48vw)] md:text-[min(30rem,52vw)]"
+          restClassName="pl-1 sm:pl-2"
         />
         <motion.p
           initial={{ opacity: 0, y: 12 }}

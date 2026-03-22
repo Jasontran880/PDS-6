@@ -18,14 +18,14 @@ export default function App() {
           <Route path="/" element={<LanderPage />} />
           <Route
             path="/outersphere"
-            element={<SphereTitleCard title="Innersphere" nextTo="/social" />}
+            element={<SphereTitleCard title="Outersphere" nextTo="/social" centered />}
           />
           <Route path="/social" element={<SocialCirclePage />} />
           <Route path="/profile/view/:userId" element={<PersonalProfilePage />} />
           <Route path="/profile" element={<PersonalProfilePage isOwnProfile />} />
           <Route
             path="/innersphere"
-            element={<SphereTitleCard title="Outersphere" nextTo="/hangouts" />}
+            element={<SphereTitleCard title="Innersphere" nextTo="/hangouts" />}
           />
           <Route path="/hangouts" element={<HangoutsPage />} />
           <Route path="/explore" element={<ExplorePage />} />

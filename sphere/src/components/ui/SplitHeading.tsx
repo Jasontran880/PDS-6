@@ -3,6 +3,8 @@ type Props = {
   className?: string
   firstClassName?: string
   restClassName?: string
+  /** Use center when the first letter is much larger than the rest */
+  rowAlign?: 'baseline' | 'center'
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span'
 }
 
@@ -15,6 +17,7 @@ export function SplitHeading({
   className,
   firstClassName,
   restClassName,
+  rowAlign = 'baseline',
   as: Tag = 'h2',
 }: Props) {
   const first = text.slice(0, 1)
@@ -22,7 +25,8 @@ export function SplitHeading({
   return (
     <Tag
       className={cx(
-        'inline-flex flex-wrap items-baseline gap-0 text-white [text-shadow:var(--sphere-glow-heading)]',
+        'inline-flex flex-wrap gap-0 text-white [text-shadow:var(--sphere-glow-heading)]',
+        rowAlign === 'center' ? 'items-center' : 'items-baseline',
         className,
       )}
     >

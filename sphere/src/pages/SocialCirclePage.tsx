@@ -33,7 +33,7 @@ export function SocialCirclePage() {
       </header>
 
       <div className="absolute right-4 top-6 z-20 flex flex-col items-end gap-2 sm:right-8">
-        <GlassPill className="text-[9px] sm:text-[10px]">NUMBER OF FRIENDS [12]</GlassPill>
+        <GlassPill className="text-[9px] sm:text-[10px]">NUMBER OF FRIENDS [20]</GlassPill>
         <GlassPill className="text-[9px] sm:text-[10px]">DAYS SINCE LAST HANGOUT [3]</GlassPill>
       </div>
 

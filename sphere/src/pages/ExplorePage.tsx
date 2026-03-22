@@ -3,6 +3,7 @@ import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
 import { GlassPill } from '@/components/ui/GlassPill'
 import { SplitHeading } from '@/components/ui/SplitHeading'
+import { CHARACTER_NAMES } from '@/lib/characterNames'
 import { businessImageUrl } from '@/lib/paths'
 
 const venues = [
@@ -13,14 +14,16 @@ const venues = [
   { name: 'Retro Arcade', cat: 'Cinema', cover: businessImageUrl.arcade },
 ]
 
-const people: { name: string; face: FaceId; tint: string; tag: string }[] = [
-  { name: 'River', face: 2, tint: '#7eb8ff', tag: 'Beach' },
-  { name: 'Skyler', face: 1, tint: '#ff9ec8', tag: 'Music' },
-  { name: 'Morgan', face: 3, tint: '#c9a8ff', tag: 'Games' },
-  { name: 'Casey', face: 4, tint: '#7dffb0', tag: 'Food' },
-  { name: 'Jordan', face: 5, tint: '#ffb87e', tag: 'Art' },
-  { name: 'Taylor', face: 1, tint: '#7eb8ff', tag: 'Hiking' },
-]
+const exploreTags = ['Beach', 'Music', 'Games', 'Food', 'Art', 'Hiking'] as const
+const exploreTints = ['#7eb8ff', '#ff9ec8', '#c9a8ff', '#7dffb0', '#ffb87e', '#7eb8ff'] as const
+const exploreFaces: FaceId[] = [2, 1, 3, 4, 5, 1]
+
+const people: { name: string; face: FaceId; tint: string; tag: string }[] = exploreFaces.map((face, i) => ({
+  name: CHARACTER_NAMES[i],
+  face,
+  tint: exploreTints[i],
+  tag: exploreTags[i],
+}))
 
 export function ExplorePage() {
   return (

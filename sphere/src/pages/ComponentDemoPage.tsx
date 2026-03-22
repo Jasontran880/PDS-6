@@ -3,6 +3,7 @@ import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
 import { GlassPill } from '@/components/ui/GlassPill'
 import { HangoutCard } from '@/components/ui/HangoutCard'
+import { CHARACTER_NAMES } from '@/lib/characterNames'
 import { hangoutCardMedia } from '@/lib/mockContent'
 import { carouselImageAt } from '@/lib/paths'
 import { SplitHeading } from '@/components/ui/SplitHeading'
@@ -27,8 +28,8 @@ export function ComponentDemoPage() {
           <StarMetric kind="flops" value={7} />
         </div>
         <div className="mb-6 flex flex-wrap gap-2">
-          <UsernamePill name="Jamie" />
-          <UsernamePill name="Alex" />
+          <UsernamePill name={CHARACTER_NAMES[2]} />
+          <UsernamePill name={CHARACTER_NAMES[3]} />
         </div>
         <div className="flex flex-wrap items-end gap-8">
           <AvatarBubble size="sm" face={1} bodyTint="#ff9ec8" label="sm" />
@@ -42,7 +43,7 @@ export function ComponentDemoPage() {
           title={demoMedia.title}
           date={demoMedia.date}
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          usernames={['River', 'Sky']}
+          usernames={[CHARACTER_NAMES[4], CHARACTER_NAMES[5]]}
           coverImage={carouselImageAt(0)}
           coverTitle={demoMedia.title}
           coverDate={demoMedia.date}
