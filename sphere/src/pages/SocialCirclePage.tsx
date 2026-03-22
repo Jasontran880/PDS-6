@@ -67,9 +67,10 @@ export function SocialCirclePage() {
 
       <div className="relative mx-auto min-h-[55vh] w-full max-w-6xl px-4">
         {friends.map((f, i) => (
-          <motion.button
+          <motion.div
             key={f.id}
-            type="button"
+            role="button"
+            tabIndex={0}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{
               opacity: 1,
@@ -81,13 +82,19 @@ export function SocialCirclePage() {
               y: { repeat: Infinity, duration: 2.5 + i * 0.1, ease: 'easeInOut' },
             }}
             whileHover={{ scale: 1.12, filter: 'drop-shadow(0 0 12px rgba(255,255,255,0.9))' }}
-            className="absolute z-10 -translate-x-1/2 -translate-y-1/2 border-0 bg-transparent p-0"
+            className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             style={{ left: f.x, top: f.y }}
             onClick={() => navigate(`/profile/view/${f.id}`)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                navigate(`/profile/view/${f.id}`)
+              }
+            }}
             aria-label={f.label}
           >
             <AvatarBubble bodyTint={f.tint} face={f.face} size="sm" label={f.label} />
-          </motion.button>
+          </motion.div>
         ))}
 
         <motion.div

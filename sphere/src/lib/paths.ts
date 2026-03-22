@@ -1,6 +1,22 @@
 /** Public URLs (via /public/assets → repo assets). Encode spaces for img/src and CSS url(). */
 const A = (name: string) => `/assets/${encodeURIComponent(name)}`
 
+/** Nested path under `/assets/` with each segment encoded (slashes preserved). */
+export function assetPath(...segments: string[]): string {
+  return '/assets/' + segments.map((s) => encodeURIComponent(s)).join('/')
+}
+
+/** Hangout / sidequest cover photos (`assets/carousel-images/`). */
+export const carouselImageUrls = [
+  assetPath('carousel-images', '41234a4116d931eba45576f86c5ce582.jpg'),
+  assetPath('carousel-images', 'c1df736a8da7a2056adc975b4dcb1513.jpg'),
+  assetPath('carousel-images', 'fdc467a3c9e5bb9d38ad2304e7f6cbf4.jpg'),
+] as const
+
+export function carouselImageAt(index: number): string {
+  return carouselImageUrls[index % carouselImageUrls.length]!
+}
+
 export const assetUrl = {
   grassOverlay: A('grass-overlay.png'),
   sphere: A('sphere.png'),

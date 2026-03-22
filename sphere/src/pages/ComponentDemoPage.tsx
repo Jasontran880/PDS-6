@@ -3,6 +3,7 @@ import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
 import { GlassPill } from '@/components/ui/GlassPill'
 import { HangoutCard } from '@/components/ui/HangoutCard'
+import { carouselImageAt } from '@/lib/paths'
 import { SplitHeading } from '@/components/ui/SplitHeading'
 import { StarMetric } from '@/components/ui/StarMetric'
 import { UsernamePill } from '@/components/ui/UsernamePill'
@@ -39,6 +40,7 @@ export function ComponentDemoPage() {
           title="Demo hangout"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           usernames={['River', 'Sky']}
+          coverImage={carouselImageAt(0)}
         />
       </div>
       <DragonBackButton to="/social" />

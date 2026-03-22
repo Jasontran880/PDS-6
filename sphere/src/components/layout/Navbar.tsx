@@ -12,7 +12,7 @@ const tabs = [
 export function Navbar() {
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/40 bg-white/20 px-2 py-2 backdrop-blur-xl"
+      className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/35 bg-[var(--sphere-glass-nav)] px-2 py-2 backdrop-blur-xl"
       aria-label="Main"
     >
       <div className="mx-auto flex max-w-4xl items-center justify-around gap-1">
@@ -26,8 +26,8 @@ export function Navbar() {
                 'flex min-w-0 flex-1 flex-col items-center justify-center rounded-xl px-1 py-2 text-[9px] uppercase tracking-wide transition',
                 'sm:text-[10px]',
                 isActive
-                  ? 'bg-white/35 text-white shadow-[0_0_16px_rgba(255,255,255,0.45)]'
-                  : 'text-white/80 hover:bg-white/15 hover:text-white',
+                  ? 'bg-[var(--sphere-glass-nav-active)] text-white shadow-[0_0_16px_rgba(255,255,255,0.2)]'
+                  : 'text-white/85 hover:bg-[var(--sphere-glass-nav-hover)] hover:text-white',
               ].join(' ')
             }
             style={{ fontFamily: "'Retro Pixel', monospace" }}

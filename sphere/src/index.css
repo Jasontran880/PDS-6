@@ -55,15 +55,25 @@
   --color-sphere-avatar-blue: #7eb8ff;
   --color-sphere-avatar-green: #7dffb0;
   --color-sphere-avatar-purple: #c9a8ff;
-  --color-sphere-glass-tint: rgba(255, 255, 255, 0.22);
+  --color-sphere-glass-tint: rgba(15, 28, 52, 0.45);
   --color-sphere-glass-border: rgba(255, 255, 255, 0.55);
 }
 
 :root {
   --sphere-blur-lg: 28px;
   --sphere-blur-md: 18px;
-  --sphere-glass-bg: rgba(255, 255, 255, 0.18);
-  --sphere-glass-bg-strong: rgba(255, 255, 255, 0.28);
+  /* Dark frosted glass — stronger contrast for white text on bright sky/grass */
+  --sphere-glass-bg: rgba(16, 38, 72, 0.7);
+  --sphere-glass-bg-strong: rgba(16, 38, 72, 0.82);
+  --sphere-glass-pill: rgba(16, 38, 72, 0.55);
+  --sphere-glass-pill-hover: rgba(16, 38, 72, 0.66);
+  --sphere-glass-pill-active: rgba(16, 38, 72, 0.78);
+  --sphere-glass-nav: rgba(16, 38, 72, 0.62);
+  --sphere-glass-nav-active: rgba(16, 38, 72, 0.8);
+  --sphere-glass-nav-hover: rgba(16, 38, 72, 0.48);
+  --sphere-glass-chip: rgba(16, 38, 72, 0.52);
+  --sphere-glass-section-t: rgba(16, 38, 72, 0.45);
+  --sphere-glass-section-b: rgba(16, 38, 72, 0.68);
   --sphere-border-gloss: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.95) 0%,

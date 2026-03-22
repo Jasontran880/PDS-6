@@ -28,7 +28,7 @@ export function GlassPanel({ children, className = '', large = false }: Props) {
         style={{
           background: 'var(--sphere-glass-bg)',
           boxShadow:
-            'inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 32px rgba(80, 120, 180, 0.15)',
+            'inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 32px rgba(10, 25, 50, 0.35)',
         }}
       >
         {children}

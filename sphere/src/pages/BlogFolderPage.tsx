@@ -39,7 +39,7 @@ export function BlogFolderPage() {
           </div>
         </div>
         <div
-          className="min-h-[200px] rounded-2xl border border-white/35 bg-white/10 p-8 text-center text-lg font-bold text-white backdrop-blur-md"
+          className="min-h-[200px] rounded-2xl border border-white/35 bg-[var(--sphere-glass-chip)] p-8 text-center text-lg font-bold text-white backdrop-blur-md"
           style={{ fontFamily: "'Agrandir', sans-serif" }}
         >
           This ends up being a collaboration of photos & paragraphs

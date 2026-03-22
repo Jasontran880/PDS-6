@@ -9,7 +9,7 @@ export function UsernamePill({ name, className = '' }: Props) {
   return (
     <span
       className={[
-        'inline-flex items-baseline gap-0 rounded-full border border-white/45 bg-white/20 px-3 py-1',
+        'inline-flex items-baseline gap-0 rounded-full border border-white/45 bg-[var(--sphere-glass-chip)] px-3 py-1',
         'text-sm text-white backdrop-blur-md',
         className,
       ].join(' ')}

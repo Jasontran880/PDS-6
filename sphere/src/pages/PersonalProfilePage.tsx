@@ -1,4 +1,4 @@
-import { assetUrl } from '@/lib/paths'
+import { assetUrl, carouselImageAt } from '@/lib/paths'
 import { AvatarBubble } from '@/components/ui/AvatarBubble'
 import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
@@ -57,7 +57,7 @@ export function PersonalProfilePage({ isOwnProfile = false }: Props) {
         </div>
         <div className="flex flex-col gap-4 lg:flex-row">
           <div
-            className="min-h-[120px] flex-1 rounded-2xl border border-white/40 bg-white/15 p-4 backdrop-blur-md"
+            className="min-h-[120px] flex-1 rounded-2xl border border-white/40 bg-[var(--sphere-glass-chip)] p-4 backdrop-blur-md"
             style={{ fontFamily: "'Agrandir', sans-serif" }}
           >
             <p className="mb-2 text-xs font-bold uppercase tracking-wide text-white/90">
@@ -76,10 +76,10 @@ export function PersonalProfilePage({ isOwnProfile = false }: Props) {
         <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
           {[1, 2].map((i) => (
             <div key={i} className="flex flex-col gap-2">
-              <div
-                className="aspect-video w-full rounded-xl bg-gradient-to-br from-sky-300/80 to-fuchsia-200/80 ring-1 ring-white/50"
-                role="img"
-                aria-label="Past hangout photo placeholder"
+              <img
+                src={carouselImageAt(i - 1)}
+                alt=""
+                className="aspect-video w-full rounded-xl object-cover ring-1 ring-white/50"
               />
               <div className="flex flex-wrap gap-1">
                 <UsernamePill name="Jamie" />

@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { assetUrl } from '@/lib/paths'
+import { assetUrl, carouselImageAt } from '@/lib/paths'
 import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPill } from '@/components/ui/GlassPill'
 import { HangoutCard } from '@/components/ui/HangoutCard'
@@ -56,7 +56,7 @@ const recentMock = [
   { title: 'Museum day', date: 'Feb 10, 2026', usernames: ['Jules', 'Max'] as [string, string] },
 ]
 
-function RecentCardLazy(props: (typeof recentMock)[0] & { description: string }) {
+function RecentCardLazy(props: (typeof recentMock)[0] & { description: string; coverImage: string }) {
   const ref = useRef(null)
   const visible = useInView(ref, { once: true, margin: '-40px' })
   return (
@@ -67,6 +67,7 @@ function RecentCardLazy(props: (typeof recentMock)[0] & { description: string })
         date={props.date}
         description={props.description}
         usernames={props.usernames}
+        coverImage={props.coverImage}
       />
     </motion.div>
   )
@@ -109,18 +110,18 @@ export function HangoutsPage() {
         </div>
 
         <div className="mb-4 flex gap-4 overflow-x-auto pb-4">
-          {upcomingMock.map((h) => (
-            <HangoutCard key={h.title} variant="upcoming" {...h} />
+          {upcomingMock.map((h, i) => (
+            <HangoutCard key={h.title} variant="upcoming" {...h} coverImage={carouselImageAt(i)} />
           ))}
         </div>
 
         <img src={assetUrl.divider} alt="" className="mx-auto mb-10 max-w-full opacity-80" />
 
-        <section className="relative rounded-t-[2rem] bg-gradient-to-b from-white/25 to-white/50 px-2 py-10 pb-24 backdrop-blur-sm">
+        <section className="relative rounded-t-[2rem] bg-gradient-to-b from-[var(--sphere-glass-section-t)] to-[var(--sphere-glass-section-b)] px-2 py-10 pb-24 backdrop-blur-md">
           <h2 className="sr-only">Recent Hangouts</h2>
           <div className="mx-auto flex max-w-lg flex-col gap-8">
-            {recentDescriptions.map((r) => (
-              <RecentCardLazy key={r.title} {...r} />
+            {recentDescriptions.map((r, i) => (
+              <RecentCardLazy key={r.title} {...r} coverImage={carouselImageAt(i + upcomingMock.length)} />
             ))}
           </div>
         </section>

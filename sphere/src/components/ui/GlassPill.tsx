@@ -22,9 +22,9 @@ export function GlassPill({
         'font-pixel cursor-pointer rounded-full border border-white/50 px-4 py-2 text-xs tracking-wide text-white uppercase',
         'backdrop-blur-[var(--sphere-blur-md)] transition-transform duration-200',
         active
-          ? 'bg-white/35 shadow-[0_0_20px_rgba(255,255,255,0.5)]'
-          : 'bg-white/20 hover:bg-white/30 hover:shadow-[0_0_12px_rgba(255,255,255,0.35)]',
-        glow ? 'shadow-[0_0_24px_rgba(255,255,255,0.55)]' : '',
+          ? 'bg-[var(--sphere-glass-pill-active)] shadow-[0_0_20px_rgba(255,255,255,0.22)]'
+          : 'bg-[var(--sphere-glass-pill)] hover:bg-[var(--sphere-glass-pill-hover)] hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]',
+        glow ? 'shadow-[0_0_24px_rgba(255,255,255,0.28)]' : '',
         'active:scale-[0.98]',
         className,
       ]

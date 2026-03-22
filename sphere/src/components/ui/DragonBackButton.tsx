@@ -22,7 +22,7 @@ export function DragonBackButton({ to, className = '' }: Props) {
     >
       <img src={assetUrl.backSpaceIcon} alt="" className="h-14 w-auto drop-shadow-lg sm:h-16" />
       <span
-        className="mb-1 rounded-full border border-white/50 bg-white/20 px-3 py-1 text-[10px] uppercase tracking-wider backdrop-blur-md"
+        className="mb-1 rounded-full border border-white/50 bg-[var(--sphere-glass-chip)] px-3 py-1 text-[10px] uppercase tracking-wider backdrop-blur-md"
         style={{ fontFamily: "'Retro Pixel', monospace" }}
       >
         back

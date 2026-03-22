@@ -4,10 +4,10 @@ export type FaceId = 1 | 2 | 3 | 4 | 5 | 'none'
 
 type Size = 'sm' | 'md' | 'lg'
 
-const sizeMap: Record<Size, { wrap: string; face: string }> = {
-  sm: { wrap: 'w-16 h-16', face: 'scale-[0.35]' },
-  md: { wrap: 'w-28 h-28 sm:w-32 sm:h-32', face: 'scale-[0.42]' },
-  lg: { wrap: 'w-40 h-40 sm:w-48 sm:h-48', face: 'scale-[0.48]' },
+const sizeMap: Record<Size, { wrap: string; facePad: string; faceSize: string }> = {
+  sm: { wrap: 'w-16 h-16', facePad: 'pt-[5%]', faceSize: 'w-[88%] max-h-[52%]' },
+  md: { wrap: 'w-28 h-28 sm:w-32 sm:h-32', facePad: 'pt-[6%]', faceSize: 'w-[82%] max-h-[48%]' },
+  lg: { wrap: 'w-40 h-40 sm:w-48 sm:h-48', facePad: 'pt-[7%]', faceSize: 'w-[76%] max-h-[44%]' },
 }
 
 const faceSrc: Record<Exclude<FaceId, 'none'>, string> = {
@@ -39,7 +39,7 @@ export function AvatarBubble({
   const s = sizeMap[size]
   return (
     <div className={`flex flex-col items-center gap-1 ${className}`}>
-      <div className={`relative ${s.wrap}`}>
+      <div className={`relative contain-layout ${s.wrap}`}>
         <img
           src={assetUrl.sphere}
           alt=""
@@ -63,11 +63,16 @@ export function AvatarBubble({
           )}
         </div>
         {face !== 'none' && (
-          <img
-            src={faceSrc[face]}
-            alt=""
-            className={`pointer-events-none absolute left-1/2 top-[8%] z-30 max-w-none -translate-x-1/2 ${s.face} origin-top`}
-          />
+          <div
+            className={`pointer-events-none absolute inset-0 z-30 flex items-start justify-center ${s.facePad}`}
+            aria-hidden
+          >
+            <img
+              src={faceSrc[face]}
+              alt=""
+              className={`pointer-events-none h-auto max-w-none object-contain object-top ${s.faceSize}`}
+            />
+          </div>
         )}
         {crownSrc && (
           <img
