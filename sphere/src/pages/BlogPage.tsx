@@ -37,9 +37,9 @@ export function BlogPage() {
                 key={f.id}
                 type="button"
                 onClick={() => navigate(`/blog/folder/${f.id}`)}
-                className="border-0 bg-transparent p-2 transition hover:scale-105"
+                className="border-0 bg-transparent p-0 transition hover:scale-105 w-full"
               >
-                <img src={assetUrl.fileColour(f.n)} alt="" className="mx-auto w-full max-w-[100px]" />
+                <img src={assetUrl.fileColour(f.n)} alt="" className="w-full h-auto" />
               </button>
             ))}
           </div>
@@ -58,9 +58,9 @@ export function BlogPage() {
                 key={f.id}
                 type="button"
                 onClick={() => navigate(`/blog/folder/${f.id}`)}
-                className="border-0 bg-transparent p-2 transition hover:scale-105"
+                className="border-0 bg-transparent p-0 transition hover:scale-105 w-full"
               >
-                <img src={assetUrl.fileColour(f.n)} alt="" className="mx-auto w-full max-w-[100px]" />
+                <img src={assetUrl.fileColour(f.n)} alt="" className="w-full h-auto" />
               </button>
             ))}
           </div>

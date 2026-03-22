@@ -3,7 +3,7 @@ import { assetUrl } from '@/lib/paths'
 
 const tabs = [
   { to: '/social', label: 'Home' },
-  { to: '/innersphere', label: 'Outersphere' },
+  { to: '/outersphere', label: 'Outersphere' },
   { to: '/explore', label: 'Explore' },
   { to: '/blog', label: 'Blog' },
   { to: '/profile', label: 'Profile' },
