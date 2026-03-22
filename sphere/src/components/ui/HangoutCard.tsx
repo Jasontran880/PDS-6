@@ -6,6 +6,9 @@ export type HangoutCardProps = {
   description: string
   coverColor?: string
   coverImage?: string
+  /** Shown over the cover image (e.g. sidequest name + when it happened). */
+  coverTitle?: string
+  coverDate?: string
   usernames: [string, string]
   variant?: 'upcoming' | 'recent'
   date?: string
@@ -24,6 +27,8 @@ export function HangoutCard({
   description,
   coverColor,
   coverImage,
+  coverTitle,
+  coverDate,
   usernames,
   variant = 'upcoming',
   date,
@@ -31,6 +36,8 @@ export function HangoutCard({
 }: HangoutCardProps) {
   const bg = coverColor ?? colorFromTitle(title)
   const isRecent = variant === 'recent'
+
+  const showCoverCaption = Boolean(coverImage && (coverTitle || coverDate))
 
   const cover = (
     <div
@@ -48,6 +55,19 @@ export function HangoutCard({
           : { backgroundColor: bg }
       }
     >
+      {showCoverCaption && (
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/65 via-black/25 to-transparent px-3 pb-6 pt-2.5 text-left"
+          style={{ fontFamily: "'Agrandir', sans-serif" }}
+        >
+          {coverTitle && (
+            <p className="text-sm font-bold leading-tight text-white drop-shadow-md">{coverTitle}</p>
+          )}
+          {coverDate && (
+            <p className="mt-0.5 text-xs font-medium italic text-white/85 drop-shadow">{coverDate}</p>
+          )}
+        </div>
+      )}
       {!coverImage && (
         <div
           className="flex h-full items-center justify-center p-4 text-center text-sm italic text-white/90"

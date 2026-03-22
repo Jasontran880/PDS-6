@@ -3,12 +3,14 @@ import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPanel } from '@/components/ui/GlassPanel'
 import { GlassPill } from '@/components/ui/GlassPill'
 import { HangoutCard } from '@/components/ui/HangoutCard'
+import { hangoutCardMedia } from '@/lib/mockContent'
 import { carouselImageAt } from '@/lib/paths'
 import { SplitHeading } from '@/components/ui/SplitHeading'
 import { StarMetric } from '@/components/ui/StarMetric'
 import { UsernamePill } from '@/components/ui/UsernamePill'
 
 export function ComponentDemoPage() {
+  const demoMedia = hangoutCardMedia('component-demo', 0)
   return (
     <div className="page-enter mx-auto max-w-4xl space-y-10 px-4 pb-36 pt-10">
       <SplitHeading text="Component Lab" as="h1" className="text-3xl" />
@@ -37,10 +39,13 @@ export function ComponentDemoPage() {
       <div className="max-w-xs">
         <HangoutCard
           variant="upcoming"
-          title="Demo hangout"
+          title={demoMedia.title}
+          date={demoMedia.date}
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           usernames={['River', 'Sky']}
           coverImage={carouselImageAt(0)}
+          coverTitle={demoMedia.title}
+          coverDate={demoMedia.date}
         />
       </div>
       <DragonBackButton to="/social" />

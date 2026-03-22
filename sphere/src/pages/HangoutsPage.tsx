@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { hangoutCardMedia } from '@/lib/mockContent'
 import { assetUrl, carouselImageAt } from '@/lib/paths'
 import { DragonBackButton } from '@/components/ui/DragonBackButton'
 import { GlassPill } from '@/components/ui/GlassPill'
@@ -56,7 +57,14 @@ const recentMock = [
   { title: 'Museum day', date: 'Feb 10, 2026', usernames: ['Jules', 'Max'] as [string, string] },
 ]
 
-function RecentCardLazy(props: (typeof recentMock)[0] & { description: string; coverImage: string }) {
+function RecentCardLazy(
+  props: (typeof recentMock)[0] & {
+    description: string
+    coverImage: string
+    coverTitle: string
+    coverDate: string
+  },
+) {
   const ref = useRef(null)
   const visible = useInView(ref, { once: true, margin: '-40px' })
   return (
@@ -68,6 +76,8 @@ function RecentCardLazy(props: (typeof recentMock)[0] & { description: string; c
         description={props.description}
         usernames={props.usernames}
         coverImage={props.coverImage}
+        coverTitle={props.coverTitle}
+        coverDate={props.coverDate}
       />
     </motion.div>
   )
@@ -75,13 +85,29 @@ function RecentCardLazy(props: (typeof recentMock)[0] & { description: string; c
 
 export function HangoutsPage() {
   const [cat, setCat] = useState<string>('ALL')
+  const upcomingEnriched = useMemo(
+    () =>
+      upcomingMock.map((h, i) => {
+        const { title, date } = hangoutCardMedia('hangouts-upcoming', i)
+        return { ...h, title, date, coverTitle: title, coverDate: date }
+      }),
+    [],
+  )
+
   const recentDescriptions = useMemo(
     () =>
-      recentMock.map((r) => ({
-        ...r,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pariatur excepteur sint occaecat cupidatat non proident.',
-      })),
+      recentMock.map((r, i) => {
+        const { title, date } = hangoutCardMedia('hangouts-recent', i)
+        return {
+          ...r,
+          title,
+          date,
+          coverTitle: title,
+          coverDate: date,
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pariatur excepteur sint occaecat cupidatat non proident.',
+        }
+      }),
     [],
   )
 
@@ -110,8 +136,18 @@ export function HangoutsPage() {
         </div>
 
         <div className="mb-4 flex gap-4 overflow-x-auto pb-4">
-          {upcomingMock.map((h, i) => (
-            <HangoutCard key={h.title} variant="upcoming" {...h} coverImage={carouselImageAt(i)} />
+          {upcomingEnriched.map((h, i) => (
+            <HangoutCard
+              key={`${h.title}-${i}`}
+              variant="upcoming"
+              title={h.title}
+              description={h.description}
+              usernames={h.usernames}
+              date={h.date}
+              coverImage={carouselImageAt(i)}
+              coverTitle={h.coverTitle}
+              coverDate={h.coverDate}
+            />
           ))}
         </div>
 

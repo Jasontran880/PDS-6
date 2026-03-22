@@ -9,7 +9,7 @@ export function LanderPage() {
       type="button"
       onClick={() => navigate('/outersphere')}
       className="flex min-h-svh w-full cursor-pointer flex-col items-center justify-center border-0 bg-transparent p-8 text-center"
-      aria-label="Continue to Outersphere"
+      aria-label="Continue to Innersphere"
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
